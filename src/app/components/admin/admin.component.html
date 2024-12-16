@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="accordion col-4" id="accordionPanelsStayOpenExample" *ngIf="!loggedIn">
+        <div class="accordion-item">
+            <div class="accordion-body">
+                <h5 class="text-center">Login</h5>
+                <hr>
+                <div class="row mb-4 mt-4 align-items-center">
+                    <div class="col-3">
+                        <label for="exampleInputEmail1" class="form-label mb-0">Username:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="username" class="form-control" id="exampleInputEmail1" [(ngModel)]="username">
+                    </div>
+                </div>
+                <div class="row mb-3 align-items-center">
+                    <div class="col-3">
+                        <label for="inputPassword6" class="form-label mb-0">Password:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="password" class="form-control" id="inputPassword6" [(ngModel)]="password">
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <button type="button" class="btn border border-secondary w-75 mt-3" (click)="getAllFeedback()">
+                        Login and Load Feedback
+                    </button>
+                    <button type="button" class="btn border border-secondary w-75 mt-4 mb-3" routerLink="/register">
+                        Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 *ngIf="allFeedback.length > 0">All Feedback</h4>
+    <table class="table mt-2" *ngIf="allFeedback.length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Approved</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let feedback of allFeedback">
+                <td>{{ feedback.id }}</td>
+                <td>{{ feedback.rating }}</td>
+                <td>{{ feedback.comment }}</td>
+                <td>{{ feedback.approved }}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-success me-2" (click)="approveFeedback(feedback.id)"
+                        [disabled]="feedback.approved">Approve</button>
+                    <button type="button" class="btn btn-outline-danger"
+                        (click)="deleteFeedback(feedback.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
